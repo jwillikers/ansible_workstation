@@ -1,0 +1,225 @@
+---
+# tasks file for ansible_workstation
+
+# TLP
+- name: Add the TLP PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:linrunner/tlp
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install the TLP packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - tlp
+      - tlp-rdw
+    state: latest
+
+# - name: Ensure that the TLP service is enabled
+#   become: true
+#   ansible.builtin.service:
+#     name: tlp.service
+#     enabled: true
+#     state: started
+
+# Development Packages
+
+- name: Install development packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - ansible
+      - btrfs-progs
+      - ccache
+      - clang
+      - cmake
+      - curl
+      - gdb
+      - git
+      - gnupg
+      - lldb
+      - make
+      - ninja-build
+      - openssh-server
+      - python3
+      - vim
+      - xclip
+      - wget
+    state: latest
+
+- name: Install development packages for Fedora
+  become: true
+  ansible.builtin.package:
+    name:
+      - clang-tools-extra
+      - gcc-c++
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install development packages for Debian
+  become: true
+  ansible.builtin.package:
+    name:
+      - clang-format
+      - clang-tidy
+      - g++
+      - python3-pip
+# python-is-python3 is only on Ubuntu 20.04 and newer
+#      - python-is-python3
+      - zfsutils-linux
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+# Git
+
+- name: Create the user's Git config directory
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.file:
+    path: ~/.config/git
+    state: directory
+    mode: 0770
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Install the Git configuration
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.copy:
+    src: gitconfig
+    dest: ~/.config/git/config
+    mode: 0660
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+# Flatpaks
+
+- name: Install Flatpak
+  become: true
+  ansible.builtin.package:
+    name: flatpak
+    state: latest
+
+- name: Add the Flathub Flatpak repository remote to the system installation
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: system
+
+- name: Add the Flathub Flatpak repository remote to the user installation
+  become: true
+  become_user: "{{ user }}"
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+# Install gvfs for tests?
+- name: Install Flatpak applications
+  community.general.flatpak:
+    name: "{{ item }}"
+    state: present
+    method: user
+  with_items:
+    - com.microsoft.Teams
+    - com.sublimemerge.App
+    - com.uploadedlobster.peek
+    - com.vscodium.codium
+    - de.haeckerfelix.Fragments
+    - org.gnome.Contacts
+    - org.gnome.Calendar
+    - org.gnome.Geary
+    - org.gnome.Notes
+    - org.gnome.Todo
+    - org.gnome.Geary
+    - org.gnome.Weather
+    - org.keepassxc.KeePassXC
+    - org.linux_hardware.hw-probe
+
+# Settings
+
+- name: Enable Night Light
+  ansible.builtin.dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+    value: true
+
+# Podman
+- name: Add the Kubic repository key
+  become: true
+  apt_key:
+    url: https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Enable the Kubic repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install Podman
+  become: true
+  ansible.builtin.package:
+    name:
+      - crun
+      - podman
+      - fuse-overlayfs
+    state: latest
+
+- name: Create the system's Podman config directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/containers
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Install the system storage config file for Podman
+  become: true
+  ansible.builtin.copy:
+    src: system-storage.conf
+    dest: /etc/containers/storage.conf
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Create the user's Podman config directory
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.file:
+    path: ~/.config/containers
+    state: directory
+    mode: 0770
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Install the user storage config file for Podman
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.copy:
+    src: user-storage.conf
+    dest: /etc/containers/storage.conf
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Ensure that the Podman auto-update service is enabled for root containers
+  become: true
+  ansible.builtin.service:
+    name: podman-auto-update.service
+    enabled: true
+    state: started
+
+- name: Ensure that the Podman auto-update service is enabled for rootless containers
+  become: true
+  ansible.builtin.systemd:
+    name: podman-auto-update.service
+    enabled: true
+    state: started
+    scope: global

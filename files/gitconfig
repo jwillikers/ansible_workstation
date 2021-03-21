@@ -1,0 +1,17 @@
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+[merge]
+	tool = smerge
+[push]
+	gpgSign = if-asked
+[gpg]
+	program = /usr/bin/gpg
+[mergetool "smerge"]
+	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
+[core]
+	editor = flatpak run com.vscodium.codium --wait
+[init]
+	defaultBranch = main

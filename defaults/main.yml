@@ -1,0 +1,4 @@
+---
+# defaults file for ansible_workstation
+
+user: "{{ ansible_user_id }}"
