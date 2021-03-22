@@ -233,7 +233,9 @@
   ansible.builtin.package:
     name:
       - dbus
-      - dconf
+      - dconf-cli
+      - dconf-gsettings-backend
+      - dconf-service
       - python-psutil
     state: latest
 
