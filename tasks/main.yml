@@ -17,12 +17,12 @@
       - tlp-rdw
     state: latest
 
-# - name: Ensure that the TLP service is enabled
-#   become: true
-#   ansible.builtin.service:
-#     name: tlp.service
-#     enabled: true
-#     state: started
+- name: Ensure that the TLP service is enabled
+  become: true
+  ansible.builtin.service:
+    name: tlp
+    enabled: true
+    state: started
 
 # libvirt
 - name: Add the virtualization PPA
