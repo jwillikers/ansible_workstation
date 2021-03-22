@@ -89,6 +89,13 @@ Fedora:::
 ➜ ansible-galaxy collection install community.general
 ----
 
+. Install the Unattended-Upgrades role from Ansible Galaxy.
++
+[source,sh]
+----
+➜ ansible-galaxy install jnv.unattended-upgrades
+----
+
 . Pull down the ansible_fish role.
 +
 [source,sh]
