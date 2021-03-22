@@ -166,6 +166,7 @@
     - org.gnome.Dictionary
     - org.gnome.Epiphany
     - org.gnome.Evince
+    - org.gnome.Firmware
     - org.gnome.Fractal
     - org.gnome.Geary
     - org.gnome.gedit
