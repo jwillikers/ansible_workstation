@@ -24,6 +24,34 @@
 #     enabled: true
 #     state: started
 
+# libvirt
+- name: Add the virtualization PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:jacob/virtualisation
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install the libvirt packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - bridge-utils
+      - libvirt-clients
+      - libvirt-daemon-system
+      - qemu-kvm
+      - virt-manager
+    state: latest
+
+- name: Add the user to the kvm and libvirt groups
+  become: true
+  ansible.builtin.user:
+    name: "{{ user }}"
+    append: true
+    groups:
+      - kvm
+      - libvirt
+
 # Development Packages
 
 - name: Install development packages
