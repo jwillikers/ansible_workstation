@@ -198,10 +198,68 @@
 
 # Settings
 
+- name: Install dependencies for dconf
+  become: true
+  ansible.builtin.package:
+    name:
+      - dbus
+      - dconf
+      - python-psutil
+    state: latest
+
+- name: Blank screen after 12 minutes of inactivity
+  community.general.dconf:
+    key: /org/gnome/desktop/session/idle-delay
+    value: "'uint32 720'"
+    state: present
+
+- name: Automatically lock the screen after one hour
+  community.general.dconf:
+    key: /org/gnome/desktop/screensaver/lock-delay
+    value: "'uint32 3600'"
+    state: present
+
+- name: Automatically delete trash content
+  community.general.dconf:
+    key: /org/gnome/desktop/privacy/remove-old-trash-files
+    value: "true"
+    state: present
+
+- name: Automatically delete temporary files
+  community.general.dconf:
+    key: /org/gnome/desktop/privacy/remove-old-temp-files
+    value: "true"
+    state: present
+
+- name: Automatically delete trashed files after 14 days
+  community.general.dconf:
+    key: /org/gnome/desktop/privacy/old-files-age
+    value: "'uint32 14'"
+    state: present
+
+- name: Automatically send technical reports
+  community.general.dconf:
+    key: /org/gnome/desktop/privacy/report-technical-problems
+    value: "true"
+    state: present
+
+- name: Send software usage statistics
+  community.general.dconf:
+    key: /org/gnome/desktop/privacy/send-software-usage-stats
+    value: "true"
+    state: present
+
+- name: Enable automatic time zone detection
+  community.general.dconf:
+    key: /org/gnome/desktop/datetime/automatic-timezone
+    value: "true"
+    state: present
+
 - name: Enable Night Light
-  ansible.builtin.dconf:
+  community.general.dconf:
     key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
-    value: true
+    value: "true"
+    state: present
 
 # Podman
 - name: Add the Kubic repository key
