@@ -236,7 +236,7 @@
       - dconf-cli
       - dconf-gsettings-backend
       - dconf-service
-      - python-psutil
+      - python3-psutil
     state: latest
 
 - name: Blank screen after 12 minutes of inactivity
