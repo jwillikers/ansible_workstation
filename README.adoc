@@ -49,7 +49,7 @@ Ubuntu:::
 +
 [source,sh]
 ----
-➜ python3 -m pip --user install ansible
+➜ python3 -m pip install --user ansible
 ----
 
 .. Ensure that `~/.local/bin` is on your path.
