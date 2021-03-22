@@ -168,19 +168,39 @@
     - com.uploadedlobster.peek
     - com.vscodium.codium
     - de.haeckerfelix.Fragments
+    - org.gnome.Books
     - org.gnome.Boxes
-    - org.gnome.Contacts
+    - org.gnome.Builder
+    - org.gnome.Calculator
     - org.gnome.Calendar
     - org.gnome.Cheese
+    - org.gnome.clocks
+    - org.gnome.Connections
+    - org.gnome.Contacts
+    - org.gnome.design.AppIconPreview
+    - org.gnome.design.Palette
+    - org.gnome.design.Typography
     - org.gnome.Dictionary
     - org.gnome.Epiphany
     - org.gnome.Evince
+    - org.gnome.Extensions
     - org.gnome.Firmware
+    - org.gnome.font-viewer
     - org.gnome.Fractal
     - org.gnome.Geary
     - org.gnome.gedit
+    - org.gnome.GHex
+    - org.gnome.gitlab.somas.Apostrophe
+    - org.gnome.Logs
+    - org.gnome.Lollypop
+    - org.gnome.Maps
     - org.gnome.Notes
+    - org.gnome.PasswordSafe
+    - org.gnome.Photos
+    - org.gnome.Podcasts
+    - org.gnome.PowerStats
     - org.gnome.Todo
+    - org.gnome.Totem
     - org.gnome.Weather
     - org.keepassxc.KeePassXC
     - org.libreoffice.LibreOffice
