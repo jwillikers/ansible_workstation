@@ -100,8 +100,17 @@
     state: latest
   when: ansible_facts['os_family'] == "Debian"
 
-# Git
+# GUI packages
+- name: Install GUI system packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - gnome-disk-utility
+      - gnome-software
+      - gnome-software-plugin-flatpak
+    state: latest
 
+# Git
 - name: Create the user's Git config directory
   become: true
   become_user: "{{ user }}"
