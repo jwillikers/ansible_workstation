@@ -159,15 +159,42 @@
     - com.uploadedlobster.peek
     - com.vscodium.codium
     - de.haeckerfelix.Fragments
+    - org.gnome.Boxes
     - org.gnome.Contacts
     - org.gnome.Calendar
+    - org.gnome.Cheese
+    - org.gnome.Dictionary
+    - org.gnome.Epiphany
+    - org.gnome.Evince
+    - org.gnome.Fractal
     - org.gnome.Geary
+    - org.gnome.gedit
     - org.gnome.Notes
     - org.gnome.Todo
-    - org.gnome.Geary
     - org.gnome.Weather
     - org.keepassxc.KeePassXC
+    - org.libreoffice.LibreOffice
     - org.linux_hardware.hw-probe
+
+- name: Alias the VSCodium Flatpak as 'codium'
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.copy:
+    src: codium.fish
+    dest: "{{ u.home }}/.config/fish/functions/codium.fish"
+    mode: 0660
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Alias the Sublime Merge Flatpak as 'smerge'
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.copy:
+    src: smerge.fish
+    dest: "{{ u.home }}/.config/fish/functions/smerge.fish"
+    mode: 0660
+    owner: "{{ user }}"
+    group: "{{ user }}"
 
 # Settings
 
