@@ -357,7 +357,7 @@
 - name: Ensure that the Podman auto-update service is enabled for root containers
   become: true
   ansible.builtin.service:
-    name: podman-auto-update.service
+    name: podman-auto-update
     enabled: true
     state: started
 
