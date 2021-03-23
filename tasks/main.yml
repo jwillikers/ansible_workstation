@@ -171,17 +171,24 @@
     method: user
 
 # Install gvfs for tests?
-- name: Install Flatpak applications
+- name: Install user Flatpak applications
   community.general.flatpak:
     name: "{{ item }}"
     state: present
     method: user
   with_items:
+    - com.calibre_ebook.calibre
+    - com.discordapp.Discord
+    - com.github.geigi.cozy
+    - com.github.johnfactotum.Foliate
     - com.microsoft.Teams
+    - com.nextcloud.desktopclient.nextcloud
     - com.sublimemerge.App
     - com.uploadedlobster.peek
     - com.vscodium.codium
     - de.haeckerfelix.Fragments
+    - im.riot.Riot
+    - org.fedoraproject.MediaWriter
     - org.gnome.Books
     - org.gnome.Boxes
     - org.gnome.Builder
@@ -213,6 +220,7 @@
     - org.gnome.Photos
     - org.gnome.Podcasts
     - org.gnome.PowerStats
+    - org.gnome.seahorse.Application
     - org.gnome.Todo
     - org.gnome.Totem
     - org.gnome.Weather
