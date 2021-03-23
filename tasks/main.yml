@@ -60,6 +60,14 @@
     repo: ppa:git-core/ppa
     state: present
   when: ansible_facts['os_family'] == "Debian"
+
+- name: Add the Jonathon F's Vim PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:jonathonf/vim
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
 - name: Install development packages
   become: true
   ansible.builtin.package:
