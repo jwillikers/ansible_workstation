@@ -371,7 +371,7 @@
   become_user: "{{ user }}"
   ansible.builtin.copy:
     src: user-storage.conf
-    dest: /etc/containers/storage.conf
+    dest: ~/.config/containers/storage.conf
     mode: 0644
     owner: "{{ user }}"
     group: "{{ user }}"
