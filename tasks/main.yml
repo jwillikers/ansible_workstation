@@ -270,13 +270,13 @@
 - name: Blank screen after 12 minutes of inactivity
   community.general.dconf:
     key: /org/gnome/desktop/session/idle-delay
-    value: "'uint32 720'"
+    value: "uint32 900"
     state: present
 
 - name: Automatically lock the screen after one hour
   community.general.dconf:
     key: /org/gnome/desktop/screensaver/lock-delay
-    value: "'uint32 3600'"
+    value: "uint32 3600"
     state: present
 
 - name: Automatically delete trash content
@@ -294,7 +294,7 @@
 - name: Automatically delete trashed files after 14 days
   community.general.dconf:
     key: /org/gnome/desktop/privacy/old-files-age
-    value: "'uint32 14'"
+    value: "uint32 14"
     state: present
 
 - name: Automatically send technical reports
@@ -306,6 +306,12 @@
 - name: Send software usage statistics
   community.general.dconf:
     key: /org/gnome/desktop/privacy/send-software-usage-stats
+    value: "true"
+    state: present
+
+- name: Enable location services
+  community.general.dconf:
+    key: /org/gnome/system/location/enabled
     value: "true"
     state: present
 
