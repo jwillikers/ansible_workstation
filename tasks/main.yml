@@ -177,6 +177,7 @@
     state: present
     method: user
   with_items:
+    - ca.desrt.dconf-editor
     - com.calibre_ebook.calibre
     - com.discordapp.Discord
     - com.github.geigi.cozy
