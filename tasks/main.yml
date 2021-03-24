@@ -228,6 +228,12 @@
     - org.libreoffice.LibreOffice
     - org.linux_hardware.hw-probe
 
+# - name: Install system Flatpak applications
+#   community.general.flatpak:
+#     name: org.linux_hardware.hw-probe
+#     state: present
+#     method: system
+
 - name: Alias the VSCodium Flatpak as 'codium'
   become: true
   become_user: "{{ user }}"
