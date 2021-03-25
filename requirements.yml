@@ -1,0 +1,7 @@
+---
+roles:
+  - jnv.unattended-upgrades
+  - src: git+https://github.com/jwillikers/ansible_fish.git
+
+collections:
+  - community.general
