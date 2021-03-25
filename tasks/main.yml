@@ -1,6 +1,61 @@
 ---
 # tasks file for ansible_workstation
 
+# OpenSSH
+
+- name: Install OpenSSH server
+  become: true
+  ansible.builtin.package:
+    name: openssh-server
+    state: latest
+
+- name: Create the SSH server configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    mode: 0755
+
+- name: Enable SSH keepalives for the SSH server
+  become: true
+  ansible.builtin.file:
+    path: sshd_config.d/10-keepalive.conf
+    dest: /etc/ssh/sshd_config.d/
+    state: present
+    mode: 0644
+
+- name: Disable password authentication to the SSH server
+  become: true
+  ansible.builtin.file:
+    path: sshd_config.d/10-disable-password.conf
+    dest: /etc/ssh/sshd_config.d/
+    state: present
+    mode: 0644
+
+- name: Create the SSH client configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/ssh/ssh_config.d
+    state: directory
+    mode: 0755
+
+- name: Install SSH client configuration
+  become: true
+  ansible.builtin.file:
+    path: ssh_config.d/10-keepalive.conf
+    dest: /etc/ssh/ssh_config.d/
+    state: present
+    mode: 0644
+
+- name: Enable and restart the OpenSSH server
+  become: true
+  ansible.builtin.service:
+    name: sshd
+    enabled: true
+    state: restarted
+
+# todo Maybe? SSH config for user with NoHostAuthenticationForLocalhost yes
+
 # TLP
 - name: Add the TLP PPA
   become: true
