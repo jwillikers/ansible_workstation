@@ -23,9 +23,6 @@ An Ansible role to configure my desktop workstation.
 .Supported Platforms
 * {Ubuntu} 20.04
 
-.Roles
-* https://github.com/jwillikers/ansible_fish[ansible_fish]
-
 == Variables
 
 user:: The name of user for whom to configure everything.
