@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ci: true
+  tasks:
+    - name: Update the Aptitude's package cache
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_facts['os_family'] == "Debian"
+    - name: Include ansible_workstation
+      include_role:
+        name: "ansible_workstation"

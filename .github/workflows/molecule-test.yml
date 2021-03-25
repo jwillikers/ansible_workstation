@@ -35,4 +35,4 @@ jobs:
 
       - name: test with molecule
         run: |
-          pipenv run molecule test
+          pipenv run molecule test --scenario-name ci

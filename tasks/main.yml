@@ -286,6 +286,7 @@
     - org.keepassxc.KeePassXC
     - org.libreoffice.LibreOffice
     - org.linux_hardware.hw-probe
+  when: not ci
 
 # - name: Install system Flatpak applications
 #   community.general.flatpak:
