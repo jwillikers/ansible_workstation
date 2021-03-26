@@ -2,6 +2,7 @@
 dependency:
   name: galaxy
   options:
+    ignore-errors: true
     role-file: requirements.yml
     requirements-file: requirements.yml
 driver:
