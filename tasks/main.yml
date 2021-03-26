@@ -482,17 +482,16 @@
     owner: "{{ user }}"
     group: "{{ user }}"
 
-- name: Ensure that the Podman auto-update service is enabled for root containers
+- name: Ensure that the Podman auto-update timer is enabled for root containers
   become: true
   ansible.builtin.service:
-    name: podman-auto-update
+    name: podman-auto-update.timer
     enabled: true
     state: started
 
-- name: Ensure that the Podman auto-update service is enabled for rootless containers
+- name: Ensure that the Podman auto-update timer is enabled for rootless containers
   become: true
-  ansible.builtin.systemd:
-    name: podman-auto-update.service
+  ansible.builtin.service:
+    name: podman-auto-update.timer
     enabled: true
-    state: started
     scope: global
