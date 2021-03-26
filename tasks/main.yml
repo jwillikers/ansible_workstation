@@ -207,8 +207,14 @@
     name:
       - gnome-disk-utility
       - gnome-software
-      - gnome-software-plugin-flatpak
     state: latest
+
+- name: Install the Flatpak Plugin for GNOME Software
+  become: true
+  ansible.builtin.package:
+    name: gnome-software-plugin-flatpak
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
 
 # Git
 - name: Create the user's Git config directory
