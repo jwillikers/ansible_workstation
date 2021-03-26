@@ -25,7 +25,7 @@
   ansible.builtin.file:
     path: /etc/ssh/sshd_config.d/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Enable SSH keepalives for the SSH server
   become: true
@@ -34,9 +34,9 @@
     dest: /etc/ssh/sshd_config.d/10-keepalive.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
-  - Restart sshd
+    - Restart sshd
 
 - name: Disable password authentication to the SSH server
   become: true
@@ -45,16 +45,16 @@
     dest: /etc/ssh/sshd_config.d/10-disable-password.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   notify:
-  - Restart sshd
+    - Restart sshd
 
 - name: Create the SSH client configuration directory
   become: true
   ansible.builtin.file:
     path: /etc/ssh/ssh_config.d/
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Install SSH client configuration
   become: true
@@ -63,7 +63,7 @@
     dest: /etc/ssh/ssh_config.d/10-keepalive.conf
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 # todo Maybe? SSH config for user with NoHostAuthenticationForLocalhost yes
 
@@ -114,7 +114,7 @@
   become: true
   ansible.builtin.package:
     name:
-      - '@virtualization'
+      - "@virtualization"
       - libguestfs-tools
       - python3-libguestfs
       - virt-top
@@ -194,8 +194,8 @@
       - clang-tidy
       - g++
       - python3-pip
-# python-is-python3 is only on Ubuntu 20.04 and newer
-#      - python-is-python3
+      # python-is-python3 is only on Ubuntu 20.04 and newer
+      #      - python-is-python3
       - zfsutils-linux
     state: latest
   when: ansible_facts['os_family'] == "Debian"
@@ -371,7 +371,7 @@
 - name: Install dconf on Fedora
   become: true
   ansible.builtin.package:
-    name: 
+    name:
       - dbus-daemon
       - dconf
     state: latest
