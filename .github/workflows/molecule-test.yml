@@ -28,10 +28,14 @@ jobs:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-Python-${{ matrix.python-version }}-Pipenv-${{ hashFiles('**/Pipfile.lock') }}
 
-      - name: install dependencies
+      - name: install Python dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pipenv install --deploy --dev
+
+      - name: install required Ansible roles and collections
+        run: |
+          pipenv run ansible-galaxy install -r requirements.yml
 
       - name: test with molecule
         run: |
