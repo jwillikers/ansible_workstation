@@ -98,7 +98,7 @@
     state: present
   when: ansible_facts['os_family'] == "Debian"
 
-- name: Install the libvirt packages
+- name: Install the libvirt packages on Debian
   become: true
   ansible.builtin.package:
     name:
@@ -108,6 +108,18 @@
       - qemu-kvm
       - virt-manager
     state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install the virtualization group and optional packages on Fedora
+  become: true
+  ansible.builtin.package:
+    name:
+      - '@virtualization'
+      - libguestfs-tools
+      - python3-libguestfs
+      - virt-top
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Add the user to the kvm and libvirt groups
   become: true
@@ -117,6 +129,14 @@
     groups:
       - kvm
       - libvirt
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Enable the libvirtd service
+  become: true
+  ansible.builtin.service:
+    name: libvirtd
+    enabled: true
+    state: started
 
 # Development Packages
 
