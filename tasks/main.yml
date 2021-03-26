@@ -355,11 +355,27 @@
   ansible.builtin.package:
     name:
       - dbus
+      - python3-psutil
+    state: latest
+
+- name: Install dconf on Debian
+  become: true
+  ansible.builtin.package:
+    name:
       - dconf-cli
       - dconf-gsettings-backend
       - dconf-service
-      - python3-psutil
     state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install dconf on Fedora
+  become: true
+  ansible.builtin.package:
+    name: 
+      - dbus-daemon
+      - dconf
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Blank screen after 12 minutes of inactivity
   community.general.dconf:
