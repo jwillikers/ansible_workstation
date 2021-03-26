@@ -23,44 +23,47 @@
 - name: Create the SSH server configuration directory
   become: true
   ansible.builtin.file:
-    path: /etc/ssh/sshd_config.d
+    path: /etc/ssh/sshd_config.d/
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Enable SSH keepalives for the SSH server
   become: true
-  ansible.builtin.file:
-    path: sshd_config.d/10-keepalive.conf
-    dest: /etc/ssh/sshd_config.d/
-    state: present
-    mode: 0644
+  ansible.builtin.copy:
+    src: sshd_config.d/10-keepalive.conf
+    dest: /etc/ssh/sshd_config.d/10-keepalive.conf
+    owner: root
+    group: root
+    mode: '0644'
   notify:
   - Restart sshd
 
 - name: Disable password authentication to the SSH server
   become: true
-  ansible.builtin.file:
-    path: sshd_config.d/10-disable-password.conf
-    dest: /etc/ssh/sshd_config.d/
-    state: present
-    mode: 0644
+  ansible.builtin.copy:
+    src: sshd_config.d/10-disable-password.conf
+    dest: /etc/ssh/sshd_config.d/10-disable-password.conf
+    owner: root
+    group: root
+    mode: '0644'
   notify:
   - Restart sshd
 
 - name: Create the SSH client configuration directory
   become: true
   ansible.builtin.file:
-    path: /etc/ssh/ssh_config.d
+    path: /etc/ssh/ssh_config.d/
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Install SSH client configuration
   become: true
-  ansible.builtin.file:
-    path: ssh_config.d/10-keepalive.conf
-    dest: /etc/ssh/ssh_config.d/
-    state: present
-    mode: 0644
+  ansible.builtin.copy:
+    src: ssh_config.d/10-keepalive.conf
+    dest: /etc/ssh/ssh_config.d/10-keepalive.conf
+    owner: root
+    group: root
+    mode: '0644'
 
 # todo Maybe? SSH config for user with NoHostAuthenticationForLocalhost yes
 
