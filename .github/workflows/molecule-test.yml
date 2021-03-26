@@ -33,10 +33,6 @@ jobs:
         run: |
           pipenv install --deploy --dev
 
-      - name: install required Ansible roles and collections
-        run: |
-          pipenv run ansible-galaxy install -r requirements.yml
-
       - name: test with molecule
         run: |
           pipenv run molecule test --scenario-name ci
