@@ -12,9 +12,11 @@
         "brgreen",
         "brwhite",
         "bryellow",
+        "cgroup",
         "direnv",
         "ensurepath",
         "envrc",
+        "geerlingguy",
         "libbz",
         "libffi",
         "liblzma",
@@ -34,8 +36,11 @@
         "qmark",
         "robbyrussell",
         "robbyrussell's",
+        "sbin",
         "subvolume",
+        "tmpfs",
         "venv",
-        "virtualenv"
+        "virtualenv",
+        "yamllint"
     ]
 }
