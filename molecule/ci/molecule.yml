@@ -15,6 +15,7 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/libvirt:/var/lib/libvirt
     capabilities:
       - SYS_ADMIN
     command: "/usr/sbin/init"
