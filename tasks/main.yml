@@ -506,3 +506,26 @@
     name: podman-auto-update.timer
     enabled: true
     scope: global
+
+# ULauncher
+- name: Add the ULauncher PPA on Ubuntu
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:agornostal/ulauncher
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install the ULauncher package
+  become: true
+  ansible.builtin.package:
+    name: ulauncher
+    state: latest
+
+- name: Start ULauncher when logging in
+  become: true
+  become_user: true
+  ansible.builtin.systemd:
+    name: ulauncher.service
+    enabled: true
+    state: started
+    scope: user

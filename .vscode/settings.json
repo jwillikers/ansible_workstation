@@ -6,6 +6,7 @@
         "Pipfile",
         "Podman",
         "adoc",
+        "agornostal",
         "asdf",
         "brblack",
         "brblue",
@@ -39,6 +40,7 @@
         "sbin",
         "subvolume",
         "tmpfs",
+        "ulauncher",
         "venv",
         "virtualenv",
         "yamllint"
