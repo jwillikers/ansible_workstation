@@ -529,3 +529,36 @@
     enabled: true
     state: started
     scope: user
+
+# todo Fix bundler connectivity in gai.conf.
+#  Not sure if this is necessary on Fedora.
+
+# AppImageLauncher
+
+- name: Add the AppImageLauncher PPA on Ubuntu
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:appimagelauncher-team/stable
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install AppImageLauncher package from PPA
+  become: true
+  ansible.builtin.package:
+    name: appimagelauncher
+    state: latest
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Get the URL for the latest x86_64 RPM available
+  command: |
+    wget -q -nv -O - https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest \
+    | awk -F': ' '/browser_download_url/ && /{{ ansible_architecture }}\.rpm/ {gsub(/"/, "", $(NF)); print $2}'
+  register: appimagelauncher_rpm_url
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install the latest AppImageLauncher RPM
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ appimagelauncher_rpm_url.stdout }}"
+    state: latest
+  when: ansible_facts['os_family'] == "RedHat"
