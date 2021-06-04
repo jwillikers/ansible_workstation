@@ -164,6 +164,7 @@
       - gnupg
       - lldb
       - make
+      - moserial
       - ninja-build
       - openssh-server
       - python3
